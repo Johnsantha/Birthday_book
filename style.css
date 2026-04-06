@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: #000;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/Book_bg.jpg') center/cover no-repeat;
+    filter: blur(8px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ─── FLIPBOOK CONTAINER ─────────────────────────────────── */
+.flipbook {
+    width: 1000px;
+    height: 550px;
+    position: relative;
+    z-index: 10;
+}
+
+/* ─── HARD COVERS ───────────────────────────────────────── */
+.flipbook .hard {
+    position: relative;
+    background: #3B342A !important;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+}
+
+.flipbook .hard small {
+    font-style: italic;
+    font-weight: lighter;
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+/* Cover content layout */
+.cover-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+}
+
+.cover-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #F5E6C8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.cover-name {
+    font-size: 36px;
+    font-weight: 800;
+    color: #FFD580;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+}
+
+.cover-sub {
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+}
+
+/* ─── INNER PAGES ───────────────────────────────────────── */
+.flipbook .page {
+    background: #E8E1C9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.11);
+    overflow: hidden;
+    box-shadow:
+        inset 0 0 20px rgba(0,0,0,0.06),
+        0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* ─── TEXT PAGES ────────────────────────────────────────── */
+.text-page {
+    justify-content: center;
+    align-items: center;
+}
+
+/* Invisible margin container for text */
+.text-margin {
+    width: 100%;
+    height: 100%;
+    padding: 40px 44px;           /* invisible margin — text stays well inside */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    overflow: hidden;
+}
+
+.page-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #5A3E2B;
+    border-bottom: 1px solid rgba(90,62,43,0.25);
+    padding-bottom: 8px;
+    margin-bottom: 2px;
+}
+
+.page-text {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #2c2c2c;
+    text-align: justify;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* ─── PHOTO PAGES ───────────────────────────────────────── */
+.photo-page {
+    justify-content: center;
+    align-items: center;
+}
+
+/* Invisible margin container for photos */
+.photo-margin {
+    width: 100%;
+    height: 100%;
+    padding: 28px 32px 20px 32px;  /* invisible margin — photos stay inside */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+/* ── Single large image ── */
+.photo-grid.single {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.photo-grid.single .photo-frame {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    max-height: 390px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+/* ── Two images side by side ── */
+.photo-grid.double {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.photo-grid.double .photo-frame {
+    width: 50%;
+    height: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+}
+
+/* ── Three images: 1 tall left + 2 stacked right ── */
+.photo-grid.triple {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.photo-grid.triple .photo-frame.tall {
+    width: 52%;
+    height: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+}
+
+.photo-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.photo-col .photo-frame {
+    width: 100%;
+    flex: 1;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+    max-height: 185px;
+}
+
+/* ── Four images 2x2 grid ── */
+.photo-grid.quad {
+    width: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.photo-grid.quad .photo-frame {
+    width: 100%;
+    height: 100%;
+    max-height: 185px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.14);
+}
+
+/* Photo caption */
+.photo-caption {
+    font-size: 11px;
+    font-style: italic;
+    color: #6B5240;
+    text-align: center;
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
+/* ─── BACK INNER PAGE ───────────────────────────────────── */
+#birthdayImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ─── PAGE SHADOW EFFECTS ───────────────────────────────── */
+.page-wrapper {
+    box-shadow: inset -8px 0 15px rgba(0,0,0,0.1),
+                inset 8px 0 15px rgba(0,0,0,0.1);
+}
+
+.page-wrapper[page]:hover {
+    box-shadow: inset -12px 0 20px rgba(0,0,0,0.15),
+                inset 12px 0 20px rgba(0,0,0,0.15);
+}
+
+.shadow {
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, transparent 100%) !important;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.25);
+}
+
+.flipbook > div > div {
+    position: relative;
+}
+
+.flipbook > div > div::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -3px;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.flipbook > div > div:hover::after {
+    opacity: 1;
+}
+
+/* ─── SPINE — FRONT COVER ───────────────────────────────── */
+#frontCover::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: -20px;
+    width: 20px;
+    height: calc(100% - 16px);
+    background: linear-gradient(90deg, rgba(0,0,0,0.12), rgba(0,0,0,0.02));
+    border-radius: 4px;
+    box-shadow: -6px 6px 18px rgba(0,0,0,0.45);
+    pointer-events: none;
+    z-index: 60;
+}
+
+#frontCover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    pointer-events: none;
+}
+
+/* ─── SPINE — BACK COVER ────────────────────────────────── */
+#backCover::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: -20px;
+    width: 20px;
+    height: calc(100% - 16px);
+    background: linear-gradient(270deg, rgba(0,0,0,0.12), rgba(0,0,0,0.02));
+    border-radius: 4px;
+    box-shadow: 6px 6px 18px rgba(0,0,0,0.45);
+    pointer-events: none;
+    z-index: 60;
+}
+
+#backCover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    pointer-events: none;
+}
+
+/* ─── COVER RADIUS ──────────────────────────────────────── */
+#frontCover,
+#backCover {
+    position: relative;
+    z-index: 70;
+}
+
+#frontCover {
+    border-top-right-radius: 26px;
+    border-bottom-right-radius: 26px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+#backCover {
+    border-top-left-radius: 26px;
+    border-bottom-left-radius: 26px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* ─── PAGE RADIUS ───────────────────────────────────────── */
+.odd {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 26px;
+    border-bottom-right-radius: 26px;
+}
+
+.even {
+    border-top-left-radius: 26px;
+    border-bottom-left-radius: 26px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
