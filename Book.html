@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="jquery.js"></script>
+  <script src="turn.js"></script>
+  <title>Birthday Book</title>
+</head>
+<body>
+  <div class="flipbook">
+
+    <!-- Front Cover -->
+    <div class="hard" id="frontCover">
+      <div class="cover-content">
+        <div class="cover-title">Happy Birthday</div>
+        <div class="cover-name">Keerthiga 🎂</div>
+        <div class="cover-sub">~ A book made just for you ~</div>
+      </div>
+    </div>
+    <div class="hard even"></div>
+    <!-- End Front Cover -->
+
+    <!-- Page 1 (odd) - PHOTO PAGE: 1 large portrait -->
+    <div class="page odd photo-page">
+      <div class="photo-margin">
+        <div class="photo-grid single">
+          <img src="images/Page_1.png" alt="santha" class="photo-frame" />
+        </div>
+        <div class="photo-caption">✨ Always stunning, always you ✨</div>
+      </div>
+    </div>
+
+    <!-- Page 2 (even) - TEXT PAGE: Dedication -->
+    <div class="page even text-page">
+      <div class="text-margin">
+        <p class="page-label">For You.</p>
+        <p class="page-text">
+          This book exists because of you.<br><br>
+          Every page holds a fragment of the memories we've woven together —
+          even the things I don't always know how to say out loud.
+          You have a way of making ordinary days feel like something worth remembering,
+          and I never want to forget a single one of them.<br><br>
+          <b>Happy Birthday, Keerthiga. ❤️</b>
+        </p>
+      </div>
+    </div>
+
+    <!-- Page 3 (odd) - PHOTO PAGE: 2 images side by side -->
+    <div class="page odd photo-page">
+      <div class="photo-margin">
+        <div class="photo-grid double">
+          <img src="images/Page_2.png" alt="Keerthiga" class="photo-frame" />
+          <img src="images/BC_1.JPG" alt="Keerthiga" class="photo-frame" />
+        </div>
+        <div class="photo-caption">🌸 Every moment with you is a memory 🌸</div>
+      </div>
+    </div>
+
+    <!-- Page 4 (even) - TEXT PAGE: Birthday wish -->
+    <div class="page even text-page">
+      <div class="text-margin">
+        <p class="page-label">Happy Birthday! 🎉</p>
+        <p class="page-text">
+          Once upon today, a friend was born who would turn my world into a collection
+          of unforgettable stories. From the very first moment we met, you brought
+          laughter, warmth, and light into my days.<br><br>
+          Together, we've shared adventures, silly moments, and countless memories
+          that I will cherish forever. Here's to adding hundreds more chapters to our
+          story — filled with joy, laughter, and a friendship that only grows stronger
+          with time.<br><br>
+          Happy Birthday to the one who makes life truly magical! 🎂
+        </p>
+      </div>
+    </div>
+
+    <!-- Page 5 (odd) - PHOTO PAGE: 3 images grid -->
+    <div class="page odd photo-page">
+      <div class="photo-margin">
+        <div class="photo-grid triple">
+          <img src="images/Page01.jpg" alt="Keerthiga" class="photo-frame tall" />
+          <div class="photo-col">
+            <img src="images/Page02.jpg" alt="Keerthiga" class="photo-frame" />
+            <img src="images/BC.JPG" alt="Keerthiga" class="photo-frame" />
+          </div>
+        </div>
+        <div class="photo-caption">💛 Moments frozen in time, forever in my heart 💛</div>
+      </div>
+    </div>
+
+    <!-- Page 6 (even) - TEXT PAGE: Heart-melting friendship paragraph -->
+    <div class="page even text-page">
+      <div class="text-margin">
+        <p class="page-label">My Dearest Keerthiga 💛</p>
+        <p class="page-text">
+          There are people who walk into your life quietly and somehow end up
+          taking up the most space in your heart — you are that person for me.
+          Keerthiga, you are not just a friend; you are the kind of rare soul
+          that makes the world feel a little softer, a little kinder, and a
+          whole lot more beautiful just by being in it.<br><br>
+          You have this incredible gift of making everyone around you feel seen,
+          heard, and loved — and I am so endlessly grateful that I get to be one
+          of those people. Every laugh we've shared, every long conversation, every
+          moment of silence that never felt awkward — all of it has shaped me in
+          ways I can't even put into words.<br><br>
+          On your birthday, I want you to know: you are deeply loved, wildly
+          admired, and absolutely irreplaceable. The world is better because
+          you're in it — and my life is good 🌸
+        </p>
+      </div>
+    </div>
+
+    <!-- Page 7 (odd) - PHOTO PAGE: 4 images grid -->
+    <div class="page odd photo-page">
+      <div class="photo-margin">
+        <div class="photo-grid quad">
+          <img src="images/Page_1.png" alt="Keerthiga" class="photo-frame" />
+          <img src="images/Page_2.png" alt="Keerthiga" class="photo-frame" />
+          <img src="images/BC.JPG" alt="Keerthiga" class="photo-frame" />
+          <img src="images/BC_1.JPG" alt="Keerthiga" class="photo-frame" />
+        </div>
+        <div class="photo-caption">🎀 A gallery of the best moments 🎀</div>
+      </div>
+    </div>
+
+    <!-- Page 8 (even) - TEXT PAGE: Final wish -->
+    <div class="page even text-page">
+      <div class="text-margin">
+        <p class="page-label">May This Year Be Yours ✨</p>
+        <p class="page-text">
+          May your day be as bright and beautiful as your smile.
+          Wishing you endless laughter, love, and happiness today and always.<br><br>
+          May all your dreams take flight this year, and may every moment be filled
+          with joy, sweet surprises, and unforgettable memories. You deserve nothing
+          but the absolute best, and I hope this year brings you closer to everything
+          you've ever wished for.<br><br>
+          Celebrate yourself today, actually not today😅, Keerthiga — because you are truly, deeply,
+          wonderfully amazing. This is your year. Own it. ✨🎂
+        </p>
+      </div>
+    </div>
+
+    <!-- Back Cover Inner -->
+    <div class="hard odd" id="backInner">
+      <img id="birthdayImage" src="images/BC.png" alt="Birthday" />
+    </div>
+
+    <!-- Back Cover -->
+    <div class="hard" id="backCover">
+      <div class="cover-content">
+        <div class="cover-title" style="font-size:22px;">Belated Birthday Wishes</div>
+        <div class="cover-sub">~ Made with love, My dear friend ~</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    $(".flipbook").turn({
+      autoCenter: true
+    });
+  </script>
+</body>
+
+</html>
