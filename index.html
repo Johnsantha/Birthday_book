@@ -4,164 +4,500 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="jquery.js"></script>
-  <script src="turn.js"></script>
-  <title>Birthday Book</title>
+  <title>Birthday Book – Locked 🔒</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Pacifico&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-blur: #3B342A;
+      --cream: #E8E1C9;
+      --brown: #3B342A;
+      --gold: #FFD580;
+      --warm-text: #5A3E2B;
+      --accent: #C97B3C;
+      --soft-pink: #F5C4C4;
+      --btn-bg: #F5E6C8;
+      --btn-hover: #FFD580;
+      --btn-shadow: rgba(90, 62, 43, 0.25);
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ── blurred book background ── */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('images/Book_bg.jpg') center/cover no-repeat;
+      filter: blur(8px) brightness(0.55);
+      z-index: 0;
+    }
+
+    /* ── full-screen overlay ── */
+    #pin-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      gap: 40px;
+    }
+
+    .pin-card-container {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      align-items: center;
+       background: var(--cream);
+      border-radius: 28px;
+      padding: 36px 40px 32px;
+       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 3px var(--gold);
+      
+    }
+
+    /* ── main card ── */
+    .pin-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      animation: floatIn 0.5s cubic-bezier(.22, 1, .36, 1) both;
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: scale(0.85) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* ── decorative bow ── */
+    .bow {
+      font-size: 38px;
+      line-height: 1;
+      margin-bottom: -6px;
+      animation: wiggle 3s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+
+      0%,
+      100% {
+        transform: rotate(-5deg);
+      }
+
+      50% {
+        transform: rotate(5deg);
+      }
+    }
+
+    /* ── lock icon area ── */
+    .lock-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 4px 12px var(--btn-shadow);
+      border: 3px solid var(--gold);
+    }
+
+    /* ── title ── */
+    .pin-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 18px;
+      color: var(--warm-text);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .pin-title span {
+      display: block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* ── PIN display dots ── */
+    .pin-display {
+      display: flex;
+      gap: 10px;
+    }
+
+    .pin-dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid rgba(90, 62, 43, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--warm-text);
+      font-weight: 700;
+      transition: all 0.15s;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .pin-dot.filled {
+      background: var(--brown);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 3px 10px rgba(59, 52, 42, 0.35);
+    }
+
+    .pin-dot.error {
+      background: #e74c3c;
+      border-color: #c0392b;
+      color: #fff;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20% {
+        transform: translateX(-6px);
+      }
+
+      40% {
+        transform: translateX(6px);
+      }
+
+      60% {
+        transform: translateX(-4px);
+      }
+
+      80% {
+        transform: translateX(4px);
+      }
+    }
+
+    /* ── number pad ── */
+    .numpad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+
+    .key {
+      height: 52px;
+      border: none;
+      outline: none;
+      border-radius: 50px;
+      background: var(--btn-bg);
+      color: var(--warm-text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--btn-shadow), 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.08s, box-shadow 0.08s, background 0.15s;
+      user-select: none;
+    }
+
+    .key:active,
+    .key.pressed {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--btn-shadow);
+      background: var(--btn-hover);
+    }
+
+    .key.zero {
+      grid-column: 2;
+    }
+
+    .key.del {
+      font-size: 14px;
+      background: rgba(90, 62, 43, 0.1);
+      grid-column: 3;
+    }
+
+    .key.del:active {
+      background: rgba(90, 62, 43, 0.2);
+    }
+
+    /* ── hint / error message ── */
+    .pin-hint {
+      font-size: 11px;
+      color: var(--accent);
+      text-align: center;
+      height: 14px;
+      transition: color 0.3s;
+    }
+
+    .pin-hint.error-msg {
+      color: #e74c3c;
+      font-weight: 600;
+    }
+
+    /* ── success overlay ── */
+    #success-flash {
+      position: fixed;
+      inset: 0;
+      background: var(--gold);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    #success-flash.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #success-flash .flash-emoji {
+      font-size: 64px;
+    }
+
+    #success-flash .flash-text {
+      font-family: 'Pacifico', cursive;
+      font-size: 24px;
+      color: var(--brown);
+    }
+
+    /* ── small star confetti (CSS only) ── */
+    .star {
+      position: fixed;
+      font-size: 22px;
+      top: -40px;
+      animation: fall linear forwards;
+      pointer-events: none;
+      z-index: 201;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+
+    /* ── layout container ── */
+    .layout {
+      display: flex;
+      /* align-items: center; */
+      /* justify-content: center; */
+      /* gap: 40px; */
+      /* width: 90%; */
+      /* max-width: 900px; */
+    }
+
+    /* ── left image styling ── */
+    .left-image {
+      /* flex: 1; */
+      display: flex;
+      justify-content: center;
+    }
+
+    .left-image img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      border: 3px solid var(--gold);
+    }
+
+    /* ── keep pin-card size proper ── */
+    /* .pin-card { */
+      /* flex: 1; */
+    /* } */
+
+    /* ── responsive (mobile) ── */
+    @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .left-image img {
+        max-width: 220px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <div class="flipbook">
 
-    <!-- Front Cover -->
-    <div class="hard" id="frontCover">
-      <div class="cover-content">
-        <div class="cover-title">Happy Birthday</div>
-        <div class="cover-name">Keerthiga 🎂</div>
-        <div class="cover-sub">~ A book made just for you ~</div>
+  <div id="success-flash">
+    <div class="flash-emoji">🎂</div>
+    <div class="flash-text">Happy Birthday✨</div>
+  </div>
+
+  <div id="pin-overlay">
+    
+    <div class="pin-card-container">
+      
+      <!-- LEFT SIDE IMAGE -->
+      <div class="left-image">
+        <img src="images/BC_1.jpg" alt="Birthday Image">
+      </div>
+      <!-- RIGHT SIDE PIN CARD (NO CHANGE INSIDE) -->
+      <div class="pin-card">
+      <div class="bow">🎀</div>
+
+      <div class="lock-icon">🔒</div>
+
+      <div class="pin-title">
+        Enter a passcode
+        <span>This book is locked with love 💛</span>
+      </div>
+
+      <!-- PIN dots -->
+      <div class="pin-display" id="pinDisplay">
+        <div class="pin-dot" id="dot0">✦</div>
+        <div class="pin-dot" id="dot1">✦</div>
+        <div class="pin-dot" id="dot2">✦</div>
+        <div class="pin-dot" id="dot3">✦</div>
+      </div>
+
+      <!-- Number pad -->
+      <div class="numpad">
+        <button class="key" data-val="1">1</button>
+        <button class="key" data-val="2">2</button>
+        <button class="key" data-val="3">3</button>
+        <button class="key" data-val="4">4</button>
+        <button class="key" data-val="5">5</button>
+        <button class="key" data-val="6">6</button>
+        <button class="key" data-val="7">7</button>
+        <button class="key" data-val="8">8</button>
+        <button class="key" data-val="9">9</button>
+        <button class="key zero" data-val="0">0</button>
+        <button class="key del" id="delBtn">⌫</button>
+      </div>
+
+      <div class="pin-hint" id="pinHint">✨ Enter your 4-digit code</div>
       </div>
     </div>
-    <div class="hard even"></div>
-    <!-- End Front Cover -->
-
-    <!-- Page 1 (odd) - PHOTO PAGE: 1 large portrait -->
-    <div class="page odd photo-page">
-      <div class="photo-margin">
-        <div class="photo-grid single">
-          <img src="images/Page_1.png" alt="santha" class="photo-frame" />
-        </div>
-        <div class="photo-caption">✨ Always stunning, always you ✨</div>
-      </div>
-    </div>
-
-    <!-- Page 2 (even) - TEXT PAGE: Dedication -->
-    <div class="page even text-page">
-      <div class="text-margin">
-        <p class="page-label">For You.</p>
-        <p class="page-text">
-          This book exists because of you.<br><br>
-          Every page holds a fragment of the memories we've woven together —
-          even the things I don't always know how to say out loud.
-          You have a way of making ordinary days feel like something worth remembering,
-          and I never want to forget a single one of them.<br><br>
-          <b>Happy Birthday, Keerthiga. ❤️</b>
-        </p>
-      </div>
-    </div>
-
-    <!-- Page 3 (odd) - PHOTO PAGE: 2 images side by side -->
-    <div class="page odd photo-page">
-      <div class="photo-margin">
-        <div class="photo-grid double">
-          <img src="images/Page_2.png" alt="Keerthiga" class="photo-frame" />
-          <img src="images/BC_1.JPG" alt="Keerthiga" class="photo-frame" />
-        </div>
-        <div class="photo-caption">🌸 Every moment with you is a memory 🌸</div>
-      </div>
-    </div>
-
-    <!-- Page 4 (even) - TEXT PAGE: Birthday wish -->
-    <div class="page even text-page">
-      <div class="text-margin">
-        <p class="page-label">Happy Birthday! 🎉</p>
-        <p class="page-text">
-          Once upon today, a friend was born who would turn my world into a collection
-          of unforgettable stories. From the very first moment we met, you brought
-          laughter, warmth, and light into my days.<br><br>
-          Together, we've shared adventures, silly moments, and countless memories
-          that I will cherish forever. Here's to adding hundreds more chapters to our
-          story — filled with joy, laughter, and a friendship that only grows stronger
-          with time.<br><br>
-          Happy Birthday to the one who makes life truly magical! 🎂
-        </p>
-      </div>
-    </div>
-
-    <!-- Page 5 (odd) - PHOTO PAGE: 3 images grid -->
-    <div class="page odd photo-page">
-      <div class="photo-margin">
-        <div class="photo-grid triple">
-          <img src="images/Page01.jpg" alt="Keerthiga" class="photo-frame tall" />
-          <div class="photo-col">
-            <img src="images/Page02.jpg" alt="Keerthiga" class="photo-frame" />
-            <img src="images/BC.JPG" alt="Keerthiga" class="photo-frame" />
-          </div>
-        </div>
-        <div class="photo-caption">💛 Moments frozen in time, forever in my heart 💛</div>
-      </div>
-    </div>
-
-    <!-- Page 6 (even) - TEXT PAGE: Heart-melting friendship paragraph -->
-    <div class="page even text-page">
-      <div class="text-margin">
-        <p class="page-label">My Dearest Keerthiga 💛</p>
-        <p class="page-text">
-          There are people who walk into your life quietly and somehow end up
-          taking up the most space in your heart — you are that person for me.
-          Keerthiga, you are not just a friend; you are the kind of rare soul
-          that makes the world feel a little softer, a little kinder, and a
-          whole lot more beautiful just by being in it.<br><br>
-          You have this incredible gift of making everyone around you feel seen,
-          heard, and loved — and I am so endlessly grateful that I get to be one
-          of those people. Every laugh we've shared, every long conversation, every
-          moment of silence that never felt awkward — all of it has shaped me in
-          ways I can't even put into words.<br><br>
-          On your birthday, I want you to know: you are deeply loved, wildly
-          admired, and absolutely irreplaceable. The world is better because
-          you're in it — and my life is good 🌸
-        </p>
-      </div>
-    </div>
-
-    <!-- Page 7 (odd) - PHOTO PAGE: 4 images grid -->
-    <div class="page odd photo-page">
-      <div class="photo-margin">
-        <div class="photo-grid quad">
-          <img src="images/Page_1.png" alt="Keerthiga" class="photo-frame" />
-          <img src="images/Page_2.png" alt="Keerthiga" class="photo-frame" />
-          <img src="images/BC.JPG" alt="Keerthiga" class="photo-frame" />
-          <img src="images/BC_1.JPG" alt="Keerthiga" class="photo-frame" />
-        </div>
-        <div class="photo-caption">🎀 A gallery of the best moments 🎀</div>
-      </div>
-    </div>
-
-    <!-- Page 8 (even) - TEXT PAGE: Final wish -->
-    <div class="page even text-page">
-      <div class="text-margin">
-        <p class="page-label">May This Year Be Yours ✨</p>
-        <p class="page-text">
-          May your day be as bright and beautiful as your smile.
-          Wishing you endless laughter, love, and happiness today and always.<br><br>
-          May all your dreams take flight this year, and may every moment be filled
-          with joy, sweet surprises, and unforgettable memories. You deserve nothing
-          but the absolute best, and I hope this year brings you closer to everything
-          you've ever wished for.<br><br>
-          Celebrate yourself today, actually not today😅, Keerthiga — because you are truly, deeply,
-          wonderfully amazing. This is your year. Own it. ✨🎂
-        </p>
-      </div>
-    </div>
-
-    <!-- Back Cover Inner -->
-    <div class="hard odd" id="backInner">
-      <img id="birthdayImage" src="images/BC.png" alt="Birthday" />
-    </div>
-
-    <!-- Back Cover -->
-    <div class="hard" id="backCover">
-      <div class="cover-content">
-        <div class="cover-title" style="font-size:22px;">Belated Birthday Wishes</div>
-        <div class="cover-sub">~ Made with love, My dear friend ~</div>
-      </div>
-    </div>
-
   </div>
 
   <script>
-    $(".flipbook").turn({
-      autoCenter: true
+    // ─── CHANGE THIS TO YOUR DESIRED PIN ───────────────────
+    const CORRECT_PIN = "1234";
+    // ───────────────────────────────────────────────────────
+
+    let current = "";
+    const dots = [0, 1, 2, 3].map(i => document.getElementById("dot" + i));
+    const hint = document.getElementById("pinHint");
+    const flash = document.getElementById("success-flash");
+
+    function updateDisplay() {
+      dots.forEach((d, i) => {
+        d.classList.remove("filled", "error");
+        if (i < current.length) {
+          d.classList.add("filled");
+          d.textContent = "●";
+        } else {
+          d.textContent = "✦";
+        }
+      });
+    }
+
+    function triggerError() {
+      dots.forEach(d => { d.classList.remove("filled"); d.classList.add("error"); d.textContent = "✕"; });
+      hint.textContent = "Wrong passcode — try again 💔";
+      hint.classList.add("error-msg");
+      setTimeout(() => {
+        current = "";
+        updateDisplay();
+        hint.textContent = "✨ Enter your 4-digit code";
+        hint.classList.remove("error-msg");
+      }, 1200);
+    }
+
+    function triggerSuccess() {
+      // confetti stars
+      const emojis = ["🌸", "⭐", "✨", "🎀", "💛", "🌟", "💖"];
+      for (let i = 0; i < 18; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+        s.style.animationDelay = (Math.random() * 0.8) + "s";
+        document.body.appendChild(s);
+      }
+
+      flash.classList.add("show");
+      setTimeout(() => {
+        // redirect to the birthday book
+        window.location.href = "book.html";
+      }, 1600);
+    }
+
+    function handleInput(val) {
+      if (current.length >= 4) return;
+      current += val;
+      updateDisplay();
+
+      if (current.length === 4) {
+        setTimeout(() => {
+          if (current === CORRECT_PIN) triggerSuccess();
+          else triggerError();
+        }, 180);
+      }
+    }
+
+    function handleDelete() {
+      if (current.length === 0) return;
+      current = current.slice(0, -1);
+      updateDisplay();
+      hint.textContent = "✨ Enter your 4-digit code";
+      hint.classList.remove("error-msg");
+    }
+
+    // Button events
+    document.querySelectorAll(".key[data-val]").forEach(btn => {
+      btn.addEventListener("click", () => handleInput(btn.dataset.val));
+    });
+    document.getElementById("delBtn").addEventListener("click", handleDelete);
+
+    // Keyboard support
+    document.addEventListener("keydown", e => {
+      if (e.key >= "0" && e.key <= "9") handleInput(e.key);
+      if (e.key === "Backspace") handleDelete();
     });
   </script>
+
 </body>
 
 </html>
