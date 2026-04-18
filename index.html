@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Birthday Suprise</title>
+  <title>Birthday Book – Locked 🔒</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Pacifico&display=swap"
     rel="stylesheet">
   <style>
@@ -27,15 +27,13 @@
       --btn-shadow: rgba(90, 62, 43, 0.25);
     }
 
-    html,
-    body {
+    html, body {
       width: 100%;
       height: 100%;
       overflow: hidden;
       font-family: 'Poppins', sans-serif;
     }
 
-    /* ── blurred book background ── */
     body::before {
       content: "";
       position: fixed;
@@ -45,7 +43,6 @@
       z-index: 0;
     }
 
-    /* ── full-screen overlay ── */
     #pin-overlay {
       position: fixed;
       inset: 0;
@@ -61,14 +58,12 @@
       justify-content: center;
       gap: 50px;
       align-items: center;
-       background: var(--cream);
+      background: var(--cream);
       border-radius: 28px;
       padding: 36px 40px 32px;
-       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 3px var(--gold);
-      
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 3px var(--gold);
     }
 
-    /* ── main card ── */
     .pin-card {
       display: flex;
       flex-direction: column;
@@ -80,18 +75,10 @@
     }
 
     @keyframes floatIn {
-      from {
-        opacity: 0;
-        transform: scale(0.85) translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+      from { opacity: 0; transform: scale(0.85) translateY(30px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* ── decorative bow ── */
     .bow {
       font-size: 38px;
       line-height: 1;
@@ -100,18 +87,10 @@
     }
 
     @keyframes wiggle {
-
-      0%,
-      100% {
-        transform: rotate(-5deg);
-      }
-
-      50% {
-        transform: rotate(5deg);
-      }
+      0%, 100% { transform: rotate(-5deg); }
+      50%       { transform: rotate(5deg); }
     }
 
-    /* ── lock icon area ── */
     .lock-icon {
       width: 64px;
       height: 64px;
@@ -125,7 +104,6 @@
       border: 3px solid var(--gold);
     }
 
-    /* ── title ── */
     .pin-title {
       font-family: 'Pacifico', cursive;
       font-size: 18px;
@@ -144,7 +122,6 @@
       margin-top: 2px;
     }
 
-    /* ── PIN display dots ── */
     .pin-display {
       display: flex;
       gap: 10px;
@@ -181,30 +158,13 @@
     }
 
     @keyframes shake {
-
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-
-      20% {
-        transform: translateX(-6px);
-      }
-
-      40% {
-        transform: translateX(6px);
-      }
-
-      60% {
-        transform: translateX(-4px);
-      }
-
-      80% {
-        transform: translateX(4px);
-      }
+      0%, 100% { transform: translateX(0); }
+      20%       { transform: translateX(-6px); }
+      40%       { transform: translateX(6px); }
+      60%       { transform: translateX(-4px); }
+      80%       { transform: translateX(4px); }
     }
 
-    /* ── number pad ── */
     .numpad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -228,16 +188,13 @@
       user-select: none;
     }
 
-    .key:active,
-    .key.pressed {
+    .key:active, .key.pressed {
       transform: translateY(3px);
       box-shadow: 0 1px 0 var(--btn-shadow);
       background: var(--btn-hover);
     }
 
-    .key.zero {
-      grid-column: 2;
-    }
+    .key.zero { grid-column: 2; }
 
     .key.del {
       font-size: 14px;
@@ -245,11 +202,8 @@
       grid-column: 3;
     }
 
-    .key.del:active {
-      background: rgba(90, 62, 43, 0.2);
-    }
+    .key.del:active { background: rgba(90, 62, 43, 0.2); }
 
-    /* ── hint / error message ── */
     .pin-hint {
       font-size: 11px;
       color: var(--accent);
@@ -263,68 +217,7 @@
       font-weight: 600;
     }
 
-    /* ── success overlay ── */
-    #success-flash {
-      position: fixed;
-      inset: 0;
-      background: var(--gold);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-
-    #success-flash.show {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    #success-flash .flash-emoji {
-      font-size: 64px;
-    }
-
-    #success-flash .flash-text {
-      font-family: 'Pacifico', cursive;
-      font-size: 24px;
-      color: var(--brown);
-    }
-
-    /* ── small star confetti (CSS only) ── */
-    .star {
-      position: fixed;
-      font-size: 22px;
-      top: -40px;
-      animation: fall linear forwards;
-      pointer-events: none;
-      z-index: 201;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-
-    /* ── layout container ── */
-    .layout {
-      display: flex;
-      /* align-items: center; */
-      /* justify-content: center; */
-      /* gap: 40px; */
-      /* width: 90%; */
-      /* max-width: 900px; */
-    }
-
-    /* ── left image styling ── */
     .left-image {
-      /* flex: 1; */
       display: flex;
       justify-content: center;
     }
@@ -337,16 +230,11 @@
       border: 3px solid var(--gold);
     }
 
-    /* ── keep pin-card size proper ── */
-    /* .pin-card { */
-      /* flex: 1; */
-    /* } */
-
-    /* ── responsive (mobile) ── */
     @media (max-width: 768px) {
-      .layout {
+      .pin-card-container {
         flex-direction: column;
         gap: 20px;
+        padding: 28px 24px;
       }
 
       .left-image img {
@@ -358,67 +246,58 @@
 
 <body>
 
-  <div id="success-flash">
-    <div class="flash-emoji">🎂</div>
-    <div class="flash-text">Happy Birthday✨</div>
-  </div>
-
   <div id="pin-overlay">
-    
     <div class="pin-card-container">
-      
+
       <!-- LEFT SIDE IMAGE -->
       <div class="left-image">
-        <img src="images/BC_12.png" alt="Birthday Image">
+        <img src='BC_12.png' alt="Birthday Image">
       </div>
-      <!-- RIGHT SIDE PIN CARD (NO CHANGE INSIDE) -->
+
+      <!-- RIGHT SIDE PIN CARD -->
       <div class="pin-card">
-      <div class="bow">🎀</div>
+        <div class="bow">🎀</div>
 
-      <div class="lock-icon">🔒</div>
+        <div class="lock-icon">🔒</div>
 
-      <div class="pin-title">
-        Enter a passcode
-        <span>This book is locked with love 💛</span>
+        <div class="pin-title">
+          Enter a passcode
+          <span>This book is locked with love 💛</span>
+        </div>
+
+        <div class="pin-display" id="pinDisplay">
+          <div class="pin-dot" id="dot0">✦</div>
+          <div class="pin-dot" id="dot1">✦</div>
+          <div class="pin-dot" id="dot2">✦</div>
+          <div class="pin-dot" id="dot3">✦</div>
+        </div>
+
+        <div class="numpad">
+          <button class="key" data-val="1">1</button>
+          <button class="key" data-val="2">2</button>
+          <button class="key" data-val="3">3</button>
+          <button class="key" data-val="4">4</button>
+          <button class="key" data-val="5">5</button>
+          <button class="key" data-val="6">6</button>
+          <button class="key" data-val="7">7</button>
+          <button class="key" data-val="8">8</button>
+          <button class="key" data-val="9">9</button>
+          <button class="key zero" data-val="0">0</button>
+          <button class="key del" id="delBtn">⌫</button>
+        </div>
+
+        <div class="pin-hint" id="pinHint">✨ Enter your 4-digit code</div>
       </div>
 
-      <!-- PIN dots -->
-      <div class="pin-display" id="pinDisplay">
-        <div class="pin-dot" id="dot0">✦</div>
-        <div class="pin-dot" id="dot1">✦</div>
-        <div class="pin-dot" id="dot2">✦</div>
-        <div class="pin-dot" id="dot3">✦</div>
-      </div>
-
-      <!-- Number pad -->
-      <div class="numpad">
-        <button class="key" data-val="1">1</button>
-        <button class="key" data-val="2">2</button>
-        <button class="key" data-val="3">3</button>
-        <button class="key" data-val="4">4</button>
-        <button class="key" data-val="5">5</button>
-        <button class="key" data-val="6">6</button>
-        <button class="key" data-val="7">7</button>
-        <button class="key" data-val="8">8</button>
-        <button class="key" data-val="9">9</button>
-        <button class="key zero" data-val="0">0</button>
-        <button class="key del" id="delBtn">⌫</button>
-      </div>
-
-      <div class="pin-hint" id="pinHint">✨ Enter your 4-digit code</div>
-      </div>
     </div>
   </div>
 
   <script>
-    // ─── CHANGE THIS TO YOUR DESIRED PIN ───────────────────
-    const CORRECT_PIN = "1234";
-    // ───────────────────────────────────────────────────────
+    const CORRECT_PIN = "1710";
 
     let current = "";
     const dots = [0, 1, 2, 3].map(i => document.getElementById("dot" + i));
     const hint = document.getElementById("pinHint");
-    const flash = document.getElementById("success-flash");
 
     function updateDisplay() {
       dots.forEach((d, i) => {
@@ -433,7 +312,11 @@
     }
 
     function triggerError() {
-      dots.forEach(d => { d.classList.remove("filled"); d.classList.add("error"); d.textContent = "✕"; });
+      dots.forEach(d => {
+        d.classList.remove("filled");
+        d.classList.add("error");
+        d.textContent = "✕";
+      });
       hint.textContent = "Wrong passcode — try again 💔";
       hint.classList.add("error-msg");
       setTimeout(() => {
@@ -445,30 +328,13 @@
     }
 
     function triggerSuccess() {
-      // confetti stars
-      const emojis = ["🌸", "⭐", "✨", "🎀", "💛", "🌟", "💖"];
-      for (let i = 0; i < 18; i++) {
-        const s = document.createElement("div");
-        s.className = "star";
-        s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        s.style.left = Math.random() * 100 + "vw";
-        s.style.animationDuration = (1.5 + Math.random() * 2) + "s";
-        s.style.animationDelay = (Math.random() * 0.8) + "s";
-        document.body.appendChild(s);
-      }
-
-      flash.classList.add("show");
-      setTimeout(() => {
-        // redirect to the birthday book
-        window.location.href = "Book.html";
-      }, 5600);
+      window.location.href = "HBD.html";
     }
 
     function handleInput(val) {
       if (current.length >= 4) return;
       current += val;
       updateDisplay();
-
       if (current.length === 4) {
         setTimeout(() => {
           if (current === CORRECT_PIN) triggerSuccess();
@@ -485,13 +351,11 @@
       hint.classList.remove("error-msg");
     }
 
-    // Button events
     document.querySelectorAll(".key[data-val]").forEach(btn => {
       btn.addEventListener("click", () => handleInput(btn.dataset.val));
     });
     document.getElementById("delBtn").addEventListener("click", handleDelete);
 
-    // Keyboard support
     document.addEventListener("keydown", e => {
       if (e.key >= "0" && e.key <= "9") handleInput(e.key);
       if (e.key === "Backspace") handleDelete();
@@ -499,5 +363,4 @@
   </script>
 
 </body>
-
 </html>
